@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>株式会社ビッグファーム | 青果・果物卸売</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-deep: #1a3a2a;
+    --green-mid: #2d6a4f;
+    --green-light: #52b788;
+    --green-pale: #d8f3dc;
+    --cream: #faf7f2;
+    --warm-white: #ffffff;
+    --text-dark: #1a1a18;
+    --text-mid: #4a4a42;
+    --text-muted: #8a8a7a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 3rem;
+    background: rgba(26, 58, 42, 0.97);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-logo {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--green-pale);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(216, 243, 220, 0.75);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    font-weight: 400;
+    transition: all 0.3s;
+    padding: 0.5rem 1.1rem;
+    border-left: 1px solid rgba(82, 183, 136, 0.15);
+    white-space: nowrap;
+  }
+
+  .nav-links li:last-child a {
+    border-right: 1px solid rgba(82, 183, 136, 0.15);
+  }
+
+  .nav-links a:hover {
+    color: var(--green-pale);
+    background: rgba(82, 183, 136, 0.1);
+  }
+
+  /* ハンバーガーメニュー（スマホ用） */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--green-pale);
+    transition: all 0.3s;
+  }
+
+  .nav-mobile {
+    display: none;
+    position: fixed;
+    top: 56px; left: 0; right: 0;
+    background: rgba(26, 58, 42, 0.98);
+    z-index: 99;
+    flex-direction: column;
+  }
+
+  .nav-mobile.open { display: flex; }
+
+  .nav-mobile a {
+    color: rgba(216, 243, 220, 0.75);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgba(82, 183, 136, 0.1);
+    transition: background 0.2s;
+  }
+
+  .nav-mobile a:hover { background: rgba(82, 183, 136, 0.1); color: var(--green-pale); }
+
+  .hero {
+    height: 100vh;
+    min-height: 600px;
+    background: var(--green-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 50%, rgba(45, 106, 79, 0.4) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(82, 183, 136, 0.15) 0%, transparent 60%);
+  }
+
+  .hero-line {
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: rgba(216, 243, 220, 0.1);
+  }
+  .hero-line:nth-child(1) { top: 25%; }
+  .hero-line:nth-child(2) { top: 75%; }
+
+  .hero-content {
+    position: relative;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    color: var(--green-light);
+    text-transform: uppercase;
+    margin-bottom: 1.8rem;
+    font-weight: 400;
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-weight: 600;
+    color: var(--warm-white);
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-title span { color: var(--green-light); }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+    color: rgba(216, 243, 220, 0.65);
+    letter-spacing: 0.05em;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+    border: 1px solid var(--green-light);
+    color: var(--green-light);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    font-weight: 400;
+    transition: all 0.35s;
+  }
+
+  .hero-cta:hover {
+    background: var(--green-light);
+    color: var(--green-deep);
+  }
+
+  .scroll-line {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, rgba(82,183,136,0.6), transparent);
+    animation: scrollDown 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scrollDown {
+    0%,100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+    50% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  .section-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.35em;
+    color: var(--green-mid);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--green-light);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ABOUT */
+  .about-section {
+    padding: 7rem 4rem;
+    background: var(--warm-white);
+  }
+
+  .about-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-visual {
+    aspect-ratio: 4/5;
+    background: var(--green-deep);
+    position: relative;
+  }
+
+  .about-visual-inner {
+    position: absolute;
+    inset: 1.5rem;
+    border: 1px solid rgba(82, 183, 136, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .about-visual-icon { font-size: 4rem; opacity: 0.3; }
+
+  .about-visual-text {
+    font-family: 'Noto Serif JP', serif;
+    color: rgba(216, 243, 220, 0.4);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+  }
+
+  .about-badge {
+    position: absolute;
+    bottom: 2.5rem;
+    right: -1.5rem;
+    background: var(--green-light);
+    color: var(--green-deep);
+    padding: 1rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  .about-badge strong {
+    display: block;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  .about-text p {
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.9;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .stat-num {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--green-mid);
+    display: block;
+    line-height: 1.4;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+  }
+
+  /* APPEAL */
+  .appeal-section {
+    padding: 7rem 4rem;
+    background: var(--green-deep);
+  }
+
+  .appeal-inner { max-width: 1100px; margin: 0 auto; }
+
+  .appeal-section .section-label { color: var(--green-light); }
+  .appeal-section .section-title { color: var(--warm-white); }
+
+  .appeal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    background: rgba(82, 183, 136, 0.12);
+    margin-top: 3rem;
+  }
+
+  .appeal-card {
+    background: #1a3a2a;
+    padding: 3rem;
+    border: 1px solid rgba(82, 183, 136, 0.1);
+    transition: background 0.3s;
+  }
+
+  .appeal-card:hover { background: rgba(45, 106, 79, 0.6); }
+
+  .appeal-num {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: rgba(82, 183, 136, 0.2);
+    display: block;
+    margin-bottom: 1.2rem;
+  }
+
+  .appeal-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--green-pale);
+    margin-bottom: 0.8rem;
+  }
+
+  .appeal-desc {
+    font-size: 0.83rem;
+    color: rgba(216, 243, 220, 0.55);
+    line-height: 1.9;
+  }
+
+  /* SERVICES */
+  .services-section {
+    padding: 7rem 4rem;
+    background: var(--cream);
+  }
+
+  .services-inner { max-width: 1100px; margin: 0 auto; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(0,0,0,0.06);
+    margin-top: 3rem;
+  }
+
+  .service-card {
+    background: var(--warm-white);
+    padding: 3rem 2.5rem;
+    transition: background 0.3s;
+  }
+
+  .service-card:hover { background: var(--green-deep); }
+  .service-card:hover .service-title,
+  .service-card:hover .service-desc { color: var(--green-pale); }
+  .service-card:hover .service-num { color: rgba(82, 183, 136, 0.3); }
+
+  .service-num {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: rgba(0,0,0,0.06);
+    display: block;
+    margin-bottom: 1.5rem;
+    transition: color 0.3s;
+  }
+
+  .service-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    transition: color 0.3s;
+  }
+
+  .service-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+    transition: color 0.3s;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--green-deep);
+    padding: 7rem 4rem;
+    text-align: center;
+  }
+
+  .contact-section .section-label { color: var(--green-light); }
+  .contact-section .section-title { color: var(--warm-white); }
+  .contact-section .divider { margin: 0 auto 2.5rem; }
+
+  .contact-desc {
+    color: rgba(216, 243, 220, 0.6);
+    font-size: 0.88rem;
+    max-width: 480px;
+    margin: 0 auto 3rem;
+  }
+
+  .contact-form {
+    max-width: 560px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(82, 183, 136, 0.25);
+    color: var(--warm-white);
+    padding: 0.9rem 1.2rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder { color: rgba(216, 243, 220, 0.3); }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus { border-color: var(--green-light); }
+
+  .contact-form textarea { height: 140px; resize: vertical; }
+
+  .contact-submit {
+    background: var(--green-light);
+    color: var(--green-deep);
+    border: none;
+    padding: 1rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+
+  .contact-submit:hover { opacity: 0.85; }
+
+  .contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 3.5rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(82, 183, 136, 0.2);
+    flex-wrap: wrap;
+  }
+
+  .contact-info-item { text-align: left; }
+
+  .contact-info-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--green-light);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .contact-info-value {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.92rem;
+    color: var(--warm-white);
+    line-height: 1.7;
+  }
+
+  footer {
+    background: #111f18;
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.85rem;
+    color: rgba(216, 243, 220, 0.5);
+    letter-spacing: 0.08em;
+  }
+
+  .footer-copy {
+    font-size: 0.72rem;
+    color: rgba(216, 243, 220, 0.3);
+  }
+
+  /* 会社挨拶 */
+  .greeting-section {
+    padding: 7rem 4rem;
+    background: var(--cream);
+  }
+  .greeting-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .greeting-text {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    line-height: 2.1;
+    margin-bottom: 1.4rem;
+  }
+  .greeting-sign {
+    margin-top: 2.5rem;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    text-align: right;
+  }
+
+  /* 代表メッセージ */
+  .message-section {
+    padding: 7rem 4rem;
+    background: var(--warm-white);
+  }
+  .message-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .message-photo {
+    aspect-ratio: 3/4;
+    background: var(--green-deep);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .message-photo-placeholder {
+    font-size: 3rem;
+    opacity: 0.25;
+  }
+  .message-photo-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: rgba(216, 243, 220, 0.4);
+  }
+  .message-photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--green-light);
+    color: var(--green-deep);
+    padding: 0.8rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-align: center;
+  }
+  .message-photo-caption strong {
+    display: block;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .message-text p {
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    line-height: 2.1;
+    margin-bottom: 1.3rem;
+  }
+  .message-quote {
+    border-left: 2px solid var(--green-light);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.05rem;
+    color: var(--green-mid);
+    line-height: 1.8;
+  }
+
+  /* 取引先実績 */
+  .clients-section {
+    padding: 7rem 4rem;
+    background: var(--green-deep);
+  }
+  .clients-inner { max-width: 1100px; margin: 0 auto; }
+  .clients-section .section-label { color: var(--green-light); }
+  .clients-section .section-title { color: var(--warm-white); }
+  .clients-desc {
+    font-size: 0.88rem;
+    color: rgba(216, 243, 220, 0.55);
+    margin-bottom: 3rem;
+    max-width: 600px;
+  }
+  .clients-categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(82, 183, 136, 0.12);
+    margin-bottom: 3rem;
+  }
+  .clients-cat {
+    background: #1a3a2a;
+    padding: 2.5rem;
+    border: 1px solid rgba(82, 183, 136, 0.1);
+  }
+  .clients-cat-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+    opacity: 0.8;
+  }
+  .clients-cat-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--green-pale);
+    margin-bottom: 0.8rem;
+  }
+  .clients-cat-list {
+    font-size: 0.8rem;
+    color: rgba(216, 243, 220, 0.5);
+    line-height: 2;
+    list-style: none;
+  }
+  .clients-cat-list li::before {
+    content: "— ";
+    color: var(--green-light);
+  }
+  .clients-note {
+    font-size: 0.72rem;
+    color: rgba(216, 243, 220, 0.3);
+    text-align: center;
+    margin-top: 2rem;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .about-section { padding: 5rem 1.5rem; }
+    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .about-badge { right: 0; }
+    .about-stats { grid-template-columns: 1fr; }
+    .appeal-section { padding: 4rem 1.5rem; }
+    .appeal-grid { grid-template-columns: 1fr; }
+    .services-section { padding: 4rem 1.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .greeting-section { padding: 5rem 1.5rem; }
+    .message-section { padding: 5rem 1.5rem; }
+    .message-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .message-photo { aspect-ratio: 3/2; }
+    .clients-section { padding: 4rem 1.5rem; }
+    .clients-categories { grid-template-columns: 1fr; }
+    .contact-section { padding: 4rem 1.5rem; }
+    .contact-info { flex-direction: column; gap: 1.5rem; }
+    footer { padding: 1.5rem; flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">株式会社ビッグファーム</div>
+  <ul class="nav-links">
+    <li><a href="#greeting">会社挨拶</a></li>
+    <li><a href="#clients">取引先実績</a></li>
+    <li><a href="#message">代表メッセージ</a></li>
+    <li><a href="#contact">お問い合わせ</a></li>
+  </ul>
+  <div class="nav-hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="#greeting" onclick="closeMenu()">会社挨拶</a>
+  <a href="#clients" onclick="closeMenu()">取引先実績</a>
+  <a href="#message" onclick="closeMenu()">代表メッセージ</a>
+  <a href="#contact" onclick="closeMenu()">お問い合わせ</a>
+</div>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-line"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Fresh &amp; Quality Since 2002</p>
+    <h1 class="hero-title">
+      フルーツで、<br><span>人を喜ばせたい。</span>
+    </h1>
+    <p class="hero-subtitle">厳しい選果基準と徹底した品質管理で、圧倒的高品質をお届けします</p>
+    <a href="#about" class="hero-cta">会社を知る</a>
+  </div>
+  <div class="scroll-line"></div>
+</section>
+
+<section id="about" class="about-section">
+  <div class="about-inner">
+    <div class="about-visual">
+      <div class="about-visual-inner">
+        <span class="about-visual-icon">🍊</span>
+        <span class="about-visual-text">BIG FARM</span>
+      </div>
+      <div class="about-badge">
+        創業<strong>平成14年</strong>の実績
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-label">About Us</p>
+      <h2 class="section-title">品質と信頼で、<br>食を支え続ける。</h2>
+      <div class="divider"></div>
+      <p>株式会社ビッグファームは、青果・果物の卸売業として、産地と食卓をつなぐ架け橋の役割を担っています。平成14年の創業以来、全国各地の農家様と連携し、旬の食材を安定的にお届けしてまいりました。</p>
+      <p>「フルーツで人を喜ばせたい」という想いのもと、厳しい選果基準と徹底した品質管理を貫き、スーパー・飲食店・食品加工業者など幅広いお取引先様のニーズにお応えしています。</p>
+      <div class="about-stats">
+        <div>
+          <span class="stat-num">年間100件</span>
+          <span class="stat-label">年間取引件数</span>
+        </div>
+        <div>
+          <span class="stat-num">47都道府県</span>
+          <span class="stat-label">全国産地ネットワーク</span>
+        </div>
+        <div>
+          <span class="stat-num">20年以上</span>
+          <span class="stat-label">創業からの歴史</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="appeal-section">
+  <div class="appeal-inner">
+    <p class="section-label">Our Strengths</p>
+    <h2 class="section-title" style="color: var(--warm-white);">選ばれる理由</h2>
+    <div class="divider"></div>
+    <div class="appeal-grid">
+      <div class="appeal-card">
+        <span class="appeal-num">01</span>
+        <h3 class="appeal-title">厳しい選果基準</h3>
+        <p class="appeal-desc">独自の厳格な選果基準を設け、品質の均一性と鮮度を徹底管理。入荷から出荷まで一貫した品質チェックを行っています。</p>
+      </div>
+      <div class="appeal-card">
+        <span class="appeal-num">02</span>
+        <h3 class="appeal-title">圧倒的高品質</h3>
+        <p class="appeal-desc">全国47都道府県の産地と直接連携し、その土地ならではの最高品質の青果を仕入れ。産地直送ならではの鮮度と味をお届けします。</p>
+      </div>
+      <div class="appeal-card">
+        <span class="appeal-num">03</span>
+        <h3 class="appeal-title">安定した供給体制</h3>
+        <p class="appeal-desc">全国ネットワークを活かした安定供給で、季節・天候に左右されず年間を通じて安定したお取引が可能です。</p>
+      </div>
+      <div class="appeal-card">
+        <span class="appeal-num">04</span>
+        <h3 class="appeal-title">20年以上の信頼</h3>
+        <p class="appeal-desc">平成14年の創業から20年以上、青果卸売業一筋で培ってきた経験とノウハウで、長期的なパートナーシップをご提案します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="services-section">
+  <div class="services-inner">
+    <p class="section-label">Services</p>
+    <h2 class="section-title">私たちのサービス</h2>
+    <div class="divider"></div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-num">01</span>
+        <h3 class="service-title">青果卸売</h3>
+        <p class="service-desc">全国の産地から仕入れた新鮮な野菜・果物を、スーパーや量販店へ安定供給。季節の旬を逃さずお届けします。</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">02</span>
+        <h3 class="service-title">業務用販売</h3>
+        <p class="service-desc">飲食店・ホテル・食品加工業者向けに、業務用規格の青果をまとめてご提供。ご要望に応じた規格・包装に対応します。</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">03</span>
+        <h3 class="service-title">産地直送手配</h3>
+        <p class="service-desc">産地と直接連携し、収穫したての食材を鮮度を保ったまま迅速に配送。競争力ある価格でご提案します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact-section">
+  <p class="section-label">Contact</p>
+  <h2 class="section-title">お問い合わせ</h2>
+  <div class="divider"></div>
+  <p class="contact-desc">ご不明な点・お取引のご相談など、お気軽にお問い合わせください。担当者より折り返しご連絡いたします。</p>
+  <form class="contact-form" onsubmit="return false;">
+    <input type="text" placeholder="会社名・お名前" />
+    <input type="email" placeholder="メールアドレス" />
+    <input type="tel" placeholder="電話番号（任意）" />
+    <textarea placeholder="お問い合わせ内容をご記入ください"></textarea>
+    <button class="contact-submit" type="submit">送　信</button>
+  </form>
+  <div class="contact-info">
+    <div class="contact-info-item">
+      <p class="contact-info-label">Address</p>
+      <p class="contact-info-value">〒262-0033 千葉県千葉市花見川区<br>幕張本郷５丁目２７−２ レジデンス大村</p>
+    </div>
+    <div class="contact-info-item">
+      <p class="contact-info-label">Tel</p>
+      <p class="contact-info-value">043-350-0688</p>
+    </div>
+    <div class="contact-info-item">
+      <p class="contact-info-label">Hours</p>
+      <p class="contact-info-value">平日 AM9:00〜PM5:00</p>
+    </div>
+  </div>
+</section>
+
+<!-- 会社挨拶 -->
+<section id="greeting" class="greeting-section">
+  <div class="greeting-inner">
+    <p class="section-label">Greeting</p>
+    <h2 class="section-title">会社挨拶</h2>
+    <div class="divider"></div>
+    <p class="greeting-text">平素より格別のご高配を賜り、厚く御礼申し上げます。</p>
+    <p class="greeting-text">株式会社ビッグファームは、平成14年の創業以来、「フルーツで人を喜ばせたい」という一念のもと、青果・果物の卸売業を営んでまいりました。全国47都道府県の産地と直接連携し、旬の恵みをお客様のもとへ安定的にお届けすることが私たちの使命です。</p>
+    <p class="greeting-text">私たちが最も大切にしているのは、「品質」と「信頼」です。独自の厳しい選果基準を設け、入荷から出荷に至るまで一貫した品質管理を徹底することで、スーパーマーケット・飲食店・食品加工業者など幅広いお取引先様から長年にわたるご信頼をいただいております。</p>
+    <p class="greeting-text">これからも地域の食文化を支える企業として、産地と消費者をつなぐ架け橋となるべく、誠心誠意取り組んでまいります。どうぞよろしくお願い申し上げます。</p>
+    <div class="greeting-sign">
+      株式会社ビッグファーム<br>
+      代表取締役　〇〇　〇〇
+    </div>
+  </div>
+</section>
+
+<!-- 取引先実績 -->
+<section id="clients" class="clients-section">
+  <div class="clients-inner">
+    <p class="section-label">Clients</p>
+    <h2 class="section-title" style="color: var(--warm-white);">取引先実績</h2>
+    <div class="divider"></div>
+    <p class="clients-desc">創業以来、多様な業態のお客様との取引実績があります。食の現場を支えるパートナーとして、幅広い分野でご活用いただいております。</p>
+    <div class="clients-categories">
+      <div class="clients-cat">
+        <span class="clients-cat-icon">🏪</span>
+        <h3 class="clients-cat-title">小売・量販店</h3>
+        <ul class="clients-cat-list">
+          <li>スーパーマーケット</li>
+          <li>青果専門店</li>
+          <li>道の駅・直売所</li>
+          <li>百貨店・高級食品店</li>
+        </ul>
+      </div>
+      <div class="clients-cat">
+        <span class="clients-cat-icon">🍽️</span>
+        <h3 class="clients-cat-title">飲食・宿泊</h3>
+        <ul class="clients-cat-list">
+          <li>レストラン・料亭</li>
+          <li>ホテル・旅館</li>
+          <li>カフェ・スイーツ店</li>
+          <li>給食センター</li>
+        </ul>
+      </div>
+      <div class="clients-cat">
+        <span class="clients-cat-icon">🏭</span>
+        <h3 class="clients-cat-title">加工・業務用</h3>
+        <ul class="clients-cat-list">
+          <li>食品加工メーカー</li>
+          <li>ジュース・ジャム製造</li>
+          <li>冷凍食品メーカー</li>
+          <li>病院・介護施設</li>
+        </ul>
+      </div>
+    </div>
+    <p class="clients-note">※具体的な取引先については守秘義務のため非公開とさせていただいております</p>
+  </div>
+</section>
+
+<!-- 代表メッセージ -->
+<section id="message" class="message-section">
+  <div class="message-inner">
+    <div class="message-photo">
+      <span class="message-photo-placeholder">👤</span>
+      <span class="message-photo-label">PHOTO</span>
+      <div class="message-photo-caption">
+        代表取締役<strong>〇〇　〇〇</strong>
+      </div>
+    </div>
+    <div class="message-text">
+      <p class="section-label">Message</p>
+      <h2 class="section-title">代表メッセージ</h2>
+      <div class="divider"></div>
+      <div class="message-quote">
+        「フルーツで人を喜ばせたい」<br>
+        その想いが、私たちの原点です。
+      </div>
+      <p>青果の仕事を始めて20年以上が経ちます。果物を手渡した瞬間に生まれる笑顔、産地の農家さんが丹精込めて育てた作物が食卓に届いたときの喜び——その一つ一つが、私がこの仕事を続ける理由です。</p>
+      <p>卸売業は目立たない仕事かもしれませんが、産地とお客様をつなぐ重要な役割を担っています。私たちが品質を守ることで、農家さんの努力が正しく評価され、消費者の皆様に安心で美味しい果物をお届けできる——そのサイクルを大切にしてきました。</p>
+      <p>これからも「圧倒的高品質」にこだわり続け、お取引先様の信頼に応えながら、フルーツの持つ力で多くの人を笑顔にしてまいります。</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('navMobile').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('navMobile').classList.remove('open');
+  }
+</script>
+  <div class="footer-logo">株式会社ビッグファーム</div>
+  <p class="footer-copy">© 2025 株式会社ビッグファーム All rights reserved.</p>
+</footer>
+
+</body>
+</html>
